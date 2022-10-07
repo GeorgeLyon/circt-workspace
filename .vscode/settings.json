@@ -1,0 +1,39 @@
+{
+  "files.exclude": {
+    "build/*": true,
+  },
+  "search.exclude": {
+    "build/*": true,
+  },
+  // CMake Settings
+  "cmake.sourceDirectory": "${workspaceFolder}/circt/llvm/llvm",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.configureOnOpen": false,
+  "cmake.generator": "Ninja",
+  "cmake.enableTraceLogging": true,
+  "cmake.configureArgs": [
+    // LLVM
+    "-DLLVM_ENABLE_ASSERTIONS=ON",
+    "-DLLVM_ENABLE_PROJECTS=mlir",
+    "-DLLVM_TARGETS_TO_BUILD=host",
+    "-DLLVM_BUILD_EXAMPLES=OFF",
+    "-DLLVM_ENABLE_OCAMLDOC=OFF",
+    "-DLLVM_ENABLE_BINDINGS=OFF",
+    "-DLLVM_ENABLE_MODULES=OFF",
+    // LLVM (performance)
+    "-DLLVM_OPTIMIZED_TABLEGEN=ON",
+    "-DLLVM_USE_SPLIT_DWARF=ON",
+    "-DLLVM_CCACHE_BUILD=ON",
+    // CIRCT 
+    "-DLLVM_EXTERNAL_PROJECTS=circt",
+    "-DLLVM_EXTERNAL_CIRCT_SOURCE_DIR=${workspaceFolder}/circt",
+    "-DCIRCT_BINDINGS_SWIFT_ENABLED=ON",
+  ],
+  // Clangd Settings
+  "clangd.checkUpdates": true,
+  "clangd.onConfigChanged": "restart",
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build",
+    "--header-insertion=never",
+  ],
+}
